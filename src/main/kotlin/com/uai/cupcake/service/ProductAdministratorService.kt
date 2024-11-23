@@ -4,5 +4,5 @@ import com.uai.cupcake.request.ProductRequest
 import com.uai.cupcake.response.ProductResponse
 
 interface ProductAdministratorService {
-    fun createCupcake(request: ProductRequest) : ProductResponse
+    fun create(request: ProductRequest) : ProductResponse
 }

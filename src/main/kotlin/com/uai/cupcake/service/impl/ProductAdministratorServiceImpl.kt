@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service
 class ProductAdministratorServiceImpl (
     private val productRepository: ProductRepository
 ) : ProductAdministratorService {
-    override fun createCupcake(request: ProductRequest): ProductResponse {
+    override fun create(request: ProductRequest): ProductResponse {
         val product = request.toEntity()
         val savedProduct = productRepository.save(product)
         return savedProduct.toResponse()

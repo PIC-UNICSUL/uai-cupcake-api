@@ -17,6 +17,6 @@ class ProductAdministratorController (
 ) {
     @PostMapping
     fun create(@RequestBody request: ProductRequest): ResponseEntity<ProductResponse> {
-        return ResponseEntity.status(HttpStatus.CREATED).body(productAdministratorService.createCupcake(request))
+        return ResponseEntity.status(HttpStatus.CREATED).body(productAdministratorService.create(request))
     }
 }
