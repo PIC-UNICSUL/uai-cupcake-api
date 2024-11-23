@@ -1,7 +1,7 @@
 package com.uai.cupcake.response
 
 import java.math.BigDecimal
-import java.util.UUID
+import java.util.*
 
 data class ProductResponse(
     val id: UUID,
@@ -10,4 +10,5 @@ data class ProductResponse(
     val category: String?,
     val price: BigDecimal,
     val photos: String?,
+    val availabilityStatus: String
 )

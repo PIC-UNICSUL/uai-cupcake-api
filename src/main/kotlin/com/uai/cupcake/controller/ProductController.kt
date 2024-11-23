@@ -15,7 +15,8 @@ class ProductController(
 ) {
 
     @GetMapping
-    fun get(@RequestParam("category") categories: List<String>?): ResponseEntity<Any> {
-        return ResponseEntity.status(HttpStatus.OK).body(productService.findProducts(categories))
+    fun get(@RequestParam("category") categories: List<String>?, @RequestParam("order") order: String?,
+            @RequestParam("limit") limit: Int?): ResponseEntity<Any> {
+        return ResponseEntity.status(HttpStatus.OK).body(productService.findProducts(categories, order, limit))
     }
 }

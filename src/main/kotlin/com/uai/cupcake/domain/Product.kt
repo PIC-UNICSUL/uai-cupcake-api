@@ -44,6 +44,7 @@ fun Product.toResponse(): ProductResponse {
         category = this.category,
         price = this.price,
         photos = this.photos,
+        availabilityStatus = availabilityStatus.name
     )
 }
 

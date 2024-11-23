@@ -4,6 +4,6 @@ import com.uai.cupcake.response.ProductResponse
 
 interface ProductService {
 
-    fun findProducts(categories: List<String>?) : List<ProductResponse>
+    fun findProducts(categories: List<String>?, order: String?, limit: Int?) : List<ProductResponse>
 
 }
