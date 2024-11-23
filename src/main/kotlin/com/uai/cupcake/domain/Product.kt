@@ -1,5 +1,6 @@
 package com.uai.cupcake.domain
 
+import com.uai.cupcake.request.ProductRequest
 import com.uai.cupcake.response.ProductResponse
 import jakarta.persistence.*
 import java.math.BigDecimal
@@ -27,7 +28,7 @@ class Product(
     @Enumerated(EnumType.STRING)
     var availabilityStatus: AvailabilityStatus,
 
-    var photos: String,
+    var photos: String?,
 
     @Column(name = "created_at", nullable = false, updatable = false)
     var createdAt: LocalDateTime,
@@ -45,6 +46,20 @@ fun Product.toResponse(): ProductResponse {
         price = this.price,
         photos = this.photos,
         availabilityStatus = availabilityStatus.name
+    )
+}
+
+fun ProductRequest.toEntity(): Product {
+    return Product(
+        id = UUID.randomUUID(),
+        name = this.name,
+        description = this.description,
+        category = this.category,
+        price = this.price,
+        photos = this.photos,
+        availabilityStatus = AvailabilityStatus.AVAILABLE,
+        createdAt = LocalDateTime.now(),
+        updatedAt = LocalDateTime.now()
     )
 }
 

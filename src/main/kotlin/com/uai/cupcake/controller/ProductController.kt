@@ -1,5 +1,6 @@
 package com.uai.cupcake.controller
 
+import com.uai.cupcake.response.ProductResponse
 import com.uai.cupcake.service.ProductService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -16,7 +17,7 @@ class ProductController(
 
     @GetMapping
     fun get(@RequestParam("category") categories: List<String>?, @RequestParam("order") order: String?,
-            @RequestParam("limit") limit: Int?): ResponseEntity<Any> {
+            @RequestParam("limit") limit: Int?): ResponseEntity<List<ProductResponse>> {
         return ResponseEntity.status(HttpStatus.OK).body(productService.findProducts(categories, order, limit))
     }
 }
