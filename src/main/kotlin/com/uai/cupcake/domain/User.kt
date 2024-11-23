@@ -29,6 +29,9 @@ data class User(
     @Column(name = "password", nullable = false)
     val password: String,
 
+    @Column(name = "role", nullable = false)
+    val role: String,
+
     @Column(name = "created_at", nullable = false, updatable = false)
     val createdAt: LocalDateTime = LocalDateTime.now(),
 
@@ -42,6 +45,7 @@ fun User.toResponse(): UserResponse {
         name = this.fullName,
         mail = this.mail,
         phone = this.phoneNumber,
+        role = this.role
     )
 }
 
@@ -55,6 +59,7 @@ fun UserRequest.toEntity(): User {
         phoneNumber = this.phone,
         mail = this.mail,
         password = encryptedPassword,
+        role = "CUSTOMER",
         createdAt = LocalDateTime.now(),
         updatedAt = LocalDateTime.now()
     )
