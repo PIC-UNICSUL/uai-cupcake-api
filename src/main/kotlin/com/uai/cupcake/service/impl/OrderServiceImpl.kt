@@ -27,7 +27,7 @@ class OrderServiceImpl(
     @Transactional
     override fun createOrder(request: OrderRequest, token: JwtAuthenticationToken): OrderResponse {
         val user = userRepository.findById(UUID.fromString(token.name)).orElseThrow {
-            throw BusinessException("User not found for token: ${token.name}")
+            throw BusinessException("User not found for token: ${token.name}", "NOT_FOUND")
         }
 
         val order = request.toEntity(user)
@@ -38,7 +38,7 @@ class OrderServiceImpl(
 
         request.orderItems.forEach {
             val product = productRepository.findById(it.id).orElseThrow {
-                throw BusinessException("Product not found for id: ${it.id}")
+                throw BusinessException("Product not found for id: ${it.id}", "NOT_FOUND")
             }
 
             val orderItem = it.toEntity(order, product)
@@ -54,7 +54,7 @@ class OrderServiceImpl(
     override fun getMe(token: JwtAuthenticationToken): List<OrderResponse> {
         val userId = UUID.fromString(token.name)
         val user = userRepository.findById(userId)
-            .orElseThrow { BusinessException("User not found for token: $userId") }
+            .orElseThrow { BusinessException("User not found for token: $userId", "NOT_FOUND") }
 
         val orders = orderRepository.findOrdersByUser(user)
 

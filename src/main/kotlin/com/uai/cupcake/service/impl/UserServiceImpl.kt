@@ -18,7 +18,7 @@ class UserServiceImpl(
     private val userRepository: UserRepository
 ) : UserService {
     override fun createUser(userRequest: UserRequest): UserResponse {
-        userRepository.findFirstByMail(userRequest.mail)?.let { throw BusinessException("Usuário já cadastrado") }
+        userRepository.findFirstByMail(userRequest.mail)?.let { throw BusinessException("Usuário já cadastrado", "BAD_REQUEST") }
         val newUser = userRequest.toEntity()
         val savedUser = userRepository.save(newUser)
         return savedUser.toResponse()

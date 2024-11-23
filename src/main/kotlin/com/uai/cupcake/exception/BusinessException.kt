@@ -1,3 +1,6 @@
 package com.uai.cupcake.exception
 
-open class BusinessException(message: String) : RuntimeException(message)
+open class BusinessException(
+    val errorCode: String,
+    message: String
+) : RuntimeException(message)

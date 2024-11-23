@@ -37,12 +37,12 @@ class LoginServiceImpl(
 
     private fun findUserByMail(mail: String): User {
         return userRepository.findFirstByMail(mail)
-            ?: throw BusinessException("Usuário não encontrado")
+            ?: throw BusinessException("Usuário não encontrado", "NOT_FOUND")
     }
 
     private fun validatePassword(rawPassword: String, encodedPassword: String) {
         if (!passwordEncoder.matches(rawPassword, encodedPassword)) {
-            throw BusinessException("Senha incorreta")
+            throw BusinessException("Senha incorreta", "NOT_FOUND")
         }
     }
 
