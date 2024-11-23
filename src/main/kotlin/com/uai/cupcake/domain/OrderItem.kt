@@ -47,6 +47,8 @@ fun OrderItem.toResponse(): OrderItemResponse {
     return OrderItemResponse(
         productId = this.product.id,
         quantity = this.quantity,
-        price = this.price
+        price = this.price,
+        name = this.product.name,
+        category = this.product.category
     )
 }

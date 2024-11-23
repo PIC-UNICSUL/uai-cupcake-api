@@ -18,7 +18,7 @@ class Product(
 
     var description: String?,
 
-    var category: String?,
+    var category: String,
 
     @Column(nullable = false)
     var price: BigDecimal,
