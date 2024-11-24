@@ -1,14 +1,12 @@
 package com.uai.cupcake.controller
 
 import com.uai.cupcake.request.ProductRequest
+import com.uai.cupcake.request.UpdateAvailabilityStatusRequest
 import com.uai.cupcake.response.ProductResponse
 import com.uai.cupcake.service.ProductAdministratorService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/admin/product")
@@ -18,5 +16,10 @@ class ProductAdministratorController (
     @PostMapping
     fun create(@RequestBody request: ProductRequest): ResponseEntity<ProductResponse> {
         return ResponseEntity.status(HttpStatus.CREATED).body(productAdministratorService.create(request))
+    }
+
+    @PutMapping("/availability")
+    fun updateAvailabilityStatus(@RequestBody request: UpdateAvailabilityStatusRequest): ResponseEntity<ProductResponse> {
+        return ResponseEntity.status(HttpStatus.CREATED).body(productAdministratorService.updateAvailabilityStatus(request))
     }
 }

@@ -10,5 +10,6 @@ data class ProductResponse(
     val category: String?,
     val price: BigDecimal,
     val photos: String?,
+    val additionalInfo: String?,
     val availabilityStatus: String
 )
