@@ -30,9 +30,6 @@ class Product(
 
     var photos: String?,
 
-    @Column(name = "additional_info")
-    var additionalInfo: String? = null,
-
     @Column(name = "created_at", nullable = false, updatable = false)
     var createdAt: LocalDateTime,
 
@@ -48,8 +45,7 @@ fun Product.toResponse(): ProductResponse {
         category = this.category,
         price = this.price,
         photos = this.photos,
-        additionalInfo = this.additionalInfo,
-        availabilityStatus = availabilityStatus.name
+        availabilityStatus = this.availabilityStatus.name
     )
 }
 

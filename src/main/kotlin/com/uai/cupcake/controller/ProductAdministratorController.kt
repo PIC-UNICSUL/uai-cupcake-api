@@ -1,6 +1,7 @@
 package com.uai.cupcake.controller
 
 import com.uai.cupcake.request.ProductRequest
+import com.uai.cupcake.request.ProductUpdateRequest
 import com.uai.cupcake.request.UpdateAvailabilityStatusRequest
 import com.uai.cupcake.response.ProductResponse
 import com.uai.cupcake.service.ProductAdministratorService
@@ -20,6 +21,11 @@ class ProductAdministratorController (
 
     @PutMapping("/availability")
     fun updateAvailabilityStatus(@RequestBody request: UpdateAvailabilityStatusRequest): ResponseEntity<ProductResponse> {
-        return ResponseEntity.status(HttpStatus.CREATED).body(productAdministratorService.updateAvailabilityStatus(request))
+        return ResponseEntity.status(HttpStatus.OK).body(productAdministratorService.updateAvailabilityStatus(request))
+    }
+
+    @PutMapping
+    fun update(@RequestBody request: ProductUpdateRequest): ResponseEntity<ProductResponse> {
+        return ResponseEntity.status(HttpStatus.OK).body(productAdministratorService.update(request))
     }
 }
