@@ -17,6 +17,7 @@ java {
 
 repositories {
 	mavenCentral()
+	jcenter()
 }
 
 dependencies {
@@ -44,4 +45,8 @@ allOpen {
 	annotation("jakarta.persistence.Entity")
 	annotation("jakarta.persistence.MappedSuperclass")
 	annotation("jakarta.persistence.Embeddable")
+}
+
+springBoot {
+	mainClass.set("com.uai.cupcake.UaiCupcakeApiApplicationKt")
 }

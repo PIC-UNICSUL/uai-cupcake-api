@@ -1,6 +1,7 @@
 package com.uai.cupcake.exception
 
 import com.uai.cupcake.response.ErrorResponse
+import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice
@@ -9,8 +10,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 @ControllerAdvice
 class GlobalExceptionHandler {
 
+    private val logger = LoggerFactory.getLogger(GlobalExceptionHandler::class.java)
+
     @ExceptionHandler(BusinessException::class)
     fun handleBusinessException(ex: BusinessException): ResponseEntity<ErrorResponse> {
+
+        logger.error("Error occurred: ${ex.message}", ex)
+
         val errorResponse = when (ex.errorCode) {
             "BAD_REQUEST" -> ErrorResponse(message = ex.message ?: "Bad request", code = "BAD_REQUEST")
             "NOT_FOUND" -> ErrorResponse(message = ex.message ?: "Resource not found", code = "NOT_FOUND")

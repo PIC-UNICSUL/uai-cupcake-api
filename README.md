@@ -1,5 +1,8 @@
 # Uai Cupcakes
 
+## Para rodar local
+- Configure o docker 
+- Definir o profile local
 
 ## Como Configurar o Banco com Docker
 
