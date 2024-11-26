@@ -2,10 +2,12 @@ package com.uai.cupcake.service.impl
 
 import com.uai.cupcake.domain.OrderStatus
 import com.uai.cupcake.domain.toResponse
-import com.uai.cupcake.exception.BusinessException
+import com.uai.cupcake.exception.BadRequestException
+import com.uai.cupcake.exception.ErrorCodeEnum
 import com.uai.cupcake.repository.OrderItemRepository
 import com.uai.cupcake.repository.OrderRepository
 import com.uai.cupcake.request.OrderStatusRequest
+import com.uai.cupcake.response.ErrorResponse
 import com.uai.cupcake.response.OrderResponse
 import com.uai.cupcake.service.OrderAdministratorService
 import org.springframework.data.domain.PageRequest
@@ -52,7 +54,12 @@ class OrderOrderServiceImplServiceImpl(
 
     override fun update(request: OrderStatusRequest): OrderResponse {
         val order = orderRepository.findById(request.id)
-            .orElseThrow { BusinessException("Order not found with ID: ${request.id}", "BAD_REQUEST") }
+            .orElseThrow { throw BadRequestException(
+                ErrorResponse(
+                ErrorCodeEnum.ORDER_NOT_FOUND,
+                "Compra ${request.id} não encontrada.",
+                null)
+            ) }
 
         order.status = OrderStatus.valueOf(request.status)
         order.additionalInfo = request.additionalInfo

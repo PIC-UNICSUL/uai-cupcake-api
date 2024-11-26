@@ -2,9 +2,11 @@ package com.uai.cupcake.service.impl
 
 import com.uai.cupcake.config.SecurityConstants
 import com.uai.cupcake.domain.User
-import com.uai.cupcake.exception.BusinessException
+import com.uai.cupcake.exception.BadRequestException
+import com.uai.cupcake.exception.ErrorCodeEnum
 import com.uai.cupcake.repository.UserRepository
 import com.uai.cupcake.request.LoginRequest
+import com.uai.cupcake.response.ErrorResponse
 import com.uai.cupcake.response.LoginResponse
 import com.uai.cupcake.service.LoginService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -20,7 +22,7 @@ import java.util.*
 class LoginServiceImpl(
     private val userRepository: UserRepository,
     private val jwtEncoder: JwtEncoder,
-    private val passwordEncoder: BCryptPasswordEncoder = BCryptPasswordEncoder(),
+    private val passwordEncoder: BCryptPasswordEncoder,
 ) : LoginService {
 
     override fun login(request: LoginRequest): LoginResponse {
@@ -37,12 +39,22 @@ class LoginServiceImpl(
 
     private fun findUserByMail(mail: String): User {
         return userRepository.findFirstByMail(mail)
-            ?: throw BusinessException("Usuário não encontrado", "NOT_FOUND")
+            ?: throw BadRequestException(ErrorResponse(
+                    ErrorCodeEnum.MAIL_NOT_FOUND,
+                    "Usuário não encontrado.",
+                    null
+                )
+            )
     }
 
     private fun validatePassword(rawPassword: String, encodedPassword: String) {
         if (!passwordEncoder.matches(rawPassword, encodedPassword)) {
-            throw BusinessException("Senha incorreta", "NOT_FOUND")
+            throw BadRequestException(ErrorResponse(
+                    ErrorCodeEnum.PASSWORD_INCORRECT,
+                    "Senha incorreta, tente novamente.",
+                    null
+                )
+            )
         }
     }
 

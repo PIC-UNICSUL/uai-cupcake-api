@@ -42,7 +42,7 @@ fun OrderRequest.toEntity(user: User): Order {
     )
 }
 
-fun Order.toResponse(total: Double, orderItems: List<OrderItemResponse>): OrderResponse{
+fun Order.toResponse(total: Double, orderItems: List<OrderItemResponse>): OrderResponse {
     return OrderResponse(
         id = this.id,
         user = this.user.toResponse(),
