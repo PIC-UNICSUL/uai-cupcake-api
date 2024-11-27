@@ -29,7 +29,7 @@ class LoginServiceImpl(
         val user = findUserByMail(request.mail)
         validatePassword(request.password, user.password)
 
-        val token = generateJwtToken(user.id)
+        val token = generateJwtToken(user.id, user.role)
 
         return LoginResponse(
             accessToken = token,
@@ -58,13 +58,14 @@ class LoginServiceImpl(
         }
     }
 
-    private fun generateJwtToken(userId: UUID): String {
+    private fun generateJwtToken(userId: UUID, role: String): String {
         val now = Instant.now()
         val claims = JwtClaimsSet.builder()
             .issuer("uai-cupcakes-api")
             .subject(userId.toString())
             .issuedAt(now)
             .expiresAt(now.plusSeconds(SecurityConstants.TOKEN_EXPIRATION_TIME))
+            .claim("role", role)
             .build()
 
         return jwtEncoder.encode(JwtEncoderParameters.from(claims)).tokenValue

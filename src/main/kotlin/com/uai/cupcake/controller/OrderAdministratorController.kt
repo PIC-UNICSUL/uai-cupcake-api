@@ -3,6 +3,7 @@ package com.uai.cupcake.controller
 import com.uai.cupcake.request.OrderStatusRequest
 import com.uai.cupcake.response.OrderResponse
 import com.uai.cupcake.service.OrderAdministratorService
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -19,7 +20,7 @@ class OrderAdministratorController(
     }
 
     @PutMapping("/status")
-    fun update(@RequestBody request: OrderStatusRequest) : ResponseEntity<OrderResponse> {
+    fun update(@Valid @RequestBody request: OrderStatusRequest) : ResponseEntity<OrderResponse> {
         return ResponseEntity.status(HttpStatus.OK).body(orderAdministratorService.update(request))
     }
 }

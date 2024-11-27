@@ -3,6 +3,7 @@ package com.uai.cupcake.controller
 import com.uai.cupcake.request.OrderRequest
 import com.uai.cupcake.response.OrderResponse
 import com.uai.cupcake.service.OrderService
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken
@@ -15,7 +16,7 @@ class OrderController(
 ) {
 
     @PostMapping
-    fun post(@RequestBody request: OrderRequest, token: JwtAuthenticationToken) : ResponseEntity<OrderResponse> {
+    fun post(@Valid @RequestBody request: OrderRequest, token: JwtAuthenticationToken) : ResponseEntity<OrderResponse> {
         return ResponseEntity.status(HttpStatus.CREATED).body(orderService.createOrder(request, token))
     }
 

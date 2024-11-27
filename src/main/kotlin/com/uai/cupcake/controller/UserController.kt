@@ -4,6 +4,7 @@ import com.uai.cupcake.request.UserRequest
 import com.uai.cupcake.request.UserUpdateRequest
 import com.uai.cupcake.response.UserResponse
 import com.uai.cupcake.service.UserService
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken
@@ -16,12 +17,12 @@ class UserController(
 ) {
 
     @PostMapping
-    fun post(@RequestBody request: UserRequest) : ResponseEntity<UserResponse> {
+    fun post(@Valid @RequestBody request: UserRequest) : ResponseEntity<UserResponse> {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(request))
     }
 
     @PutMapping
-    fun update(@RequestBody request: UserUpdateRequest, token: JwtAuthenticationToken) : ResponseEntity<UserResponse> {
+    fun update(@Valid @RequestBody request: UserUpdateRequest, token: JwtAuthenticationToken) : ResponseEntity<UserResponse> {
         return ResponseEntity.status(HttpStatus.OK).body(userService.updateUser(request, token))
     }
 

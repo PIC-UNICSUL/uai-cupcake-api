@@ -41,6 +41,11 @@ class SecurityConfig {
                     .requestMatchers(HttpMethod.POST, "/user").permitAll()
                     .requestMatchers(HttpMethod.POST, "/login").permitAll()
                     .requestMatchers(HttpMethod.GET, "/product").permitAll()
+//                    .requestMatchers(HttpMethod.POST, "/admin/product").hasRole(ADMIN)
+//                    .requestMatchers(HttpMethod.PUT, "/admin/product").hasRole(ADMIN)
+//                    .requestMatchers(HttpMethod.PUT, "/admin/product/availability").hasRole(ADMIN)
+//                    .requestMatchers(HttpMethod.GET, "/admin/order").hasAuthority(ADMIN)
+//                    .requestMatchers(HttpMethod.PUT, "/admin/order/status").hasRole(ADMIN)
                     .anyRequest().authenticated()
             }
             .csrf { it.disable() }
@@ -72,4 +77,7 @@ class SecurityConfig {
     fun bCryptPasswordEncoder(): BCryptPasswordEncoder {
         return BCryptPasswordEncoder()
     }
+
 }
+
+const val ADMIN = "ADMIN"
