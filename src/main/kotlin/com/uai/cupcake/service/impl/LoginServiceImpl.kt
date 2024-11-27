@@ -60,12 +60,14 @@ class LoginServiceImpl(
 
     private fun generateJwtToken(userId: UUID, role: String): String {
         val now = Instant.now()
+
+        val scopes = listOf(role)
         val claims = JwtClaimsSet.builder()
             .issuer("uai-cupcakes-api")
             .subject(userId.toString())
             .issuedAt(now)
             .expiresAt(now.plusSeconds(SecurityConstants.TOKEN_EXPIRATION_TIME))
-            .claim("role", role)
+            .claim("scope", scopes)
             .build()
 
         return jwtEncoder.encode(JwtEncoderParameters.from(claims)).tokenValue
