@@ -11,18 +11,17 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/admin/order")
+@PreAuthorize("hasAnyAuthority('SCOPE_ADMIN')")
 class OrderAdministratorController(
     private val orderAdministratorService: OrderAdministratorService
 ) {
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('SCOPE_ADMIN')")
     fun get(@RequestParam("status") status: List<String>?, @RequestParam("order") order: String?,
             @RequestParam("limit") limit: Int?) : ResponseEntity<List<OrderResponse>>{
         return ResponseEntity.status(HttpStatus.OK).body(orderAdministratorService.findOrders(status, order, limit))
     }
 
     @PutMapping("/status")
-    @PreAuthorize("hasAnyAuthority('SCOPE_ADMIN')")
     fun update(@Valid @RequestBody request: OrderStatusRequest) : ResponseEntity<OrderResponse> {
         return ResponseEntity.status(HttpStatus.OK).body(orderAdministratorService.update(request))
     }

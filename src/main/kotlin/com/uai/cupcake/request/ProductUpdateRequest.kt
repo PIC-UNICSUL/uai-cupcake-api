@@ -6,7 +6,6 @@ import java.math.BigDecimal
 import java.util.*
 
 data class ProductUpdateRequest(
-    @field:NotBlank(message = "id must not be blank")
     val id: UUID,
     @field:NotBlank(message = "Name must not be blank")
     val name: String,

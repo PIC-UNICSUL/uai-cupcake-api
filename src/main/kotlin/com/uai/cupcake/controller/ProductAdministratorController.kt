@@ -13,23 +13,21 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/admin/product")
+@PreAuthorize("hasAnyAuthority('SCOPE_ADMIN')")
 class ProductAdministratorController (
     private val productAdministratorService: ProductAdministratorService
 ) {
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('SCOPE_ADMIN')")
     fun create(@Valid @RequestBody request: ProductRequest): ResponseEntity<ProductResponse> {
         return ResponseEntity.status(HttpStatus.CREATED).body(productAdministratorService.create(request))
     }
 
     @PutMapping("/availability")
-    @PreAuthorize("hasAnyAuthority('SCOPE_ADMIN')")
     fun updateAvailabilityStatus(@Valid @RequestBody request: UpdateAvailabilityStatusRequest): ResponseEntity<ProductResponse> {
         return ResponseEntity.status(HttpStatus.OK).body(productAdministratorService.updateAvailabilityStatus(request))
     }
 
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('SCOPE_ADMIN')")
     fun update(@Valid @RequestBody request: ProductUpdateRequest): ResponseEntity<ProductResponse> {
         return ResponseEntity.status(HttpStatus.OK).body(productAdministratorService.update(request))
     }
