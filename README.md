@@ -1,5 +1,9 @@
 # Uai Cupcakes
 
+## Documentação de Requisições API e Configuração de Ambiente
+
+A collection do Postman, contendo todas as requisições, está localizada na pasta "doc". Para testar no ambiente de produção, basta alterar o valor do "basepath" para o endereço de produção.
+
 ## Para rodar local
 - Configure o docker 
 - Definir o profile local

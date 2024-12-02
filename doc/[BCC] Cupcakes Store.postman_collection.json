@@ -11,16 +11,28 @@
 			"item": [
 				{
 					"name": "Busca de produtos",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"auth": {
 							"type": "noauth"
 						},
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{local}}/product?category=vegano,classico",
+							"raw": "{{prod}}/product?order=desc",
 							"host": [
-								"{{local}}"
+								"{{prod}}"
 							],
 							"path": [
 								"product"
@@ -28,7 +40,17 @@
 							"query": [
 								{
 									"key": "category",
-									"value": "vegano,classico"
+									"value": "vegano,classico",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "desc"
+								},
+								{
+									"key": "limit",
+									"value": "1",
+									"disabled": true
 								}
 							]
 						}
@@ -47,7 +69,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Thaynara\",\n    \"password\": \"12345678\",\n    \"mail\": \"thaynara@teste.com\",\n    \"phone\": \"3499999999\"\n}",
+							"raw": "{\n    \"name\": \"Kayle\",\n    \"password\": \"123@UAI\",\n    \"mail\": \"email@teste.com\",\n    \"phone\": \"340000000\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -58,6 +80,40 @@
 							"raw": "{{local}}/user",
 							"host": [
 								"{{local}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find user",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{prod}}/user",
+							"host": [
+								"{{prod}}"
 							],
 							"path": [
 								"user"
@@ -91,36 +147,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{local}}/user",
+							"raw": "{{prod}}/user",
 							"host": [
-								"{{local}}"
-							],
-							"path": [
-								"user"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Find user",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{local}}/user",
-							"host": [
-								"{{local}}"
+								"{{prod}}"
 							],
 							"path": [
 								"user"
@@ -150,9 +179,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{local}}/order/me",
+							"raw": "{{prod}}/order/me",
 							"host": [
-								"{{local}}"
+								"{{prod}}"
 							],
 							"path": [
 								"order",
@@ -179,7 +208,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"orderItems\": [\n    {\n      \"id\": \"927f23e6-147e-4a3b-8b51-85384cb9a326\",\n      \"quantity\": 2\n    }\n  ]\n}\n",
+							"raw": "{\n  \"orderItems\": [\n    {\n      \"id\": \"130dc125-0deb-48c8-98db-b1190418f448\",\n      \"quantity\": 1\n    }\n  ]\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -187,9 +216,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{local}}/order",
+							"raw": "{{prod}}/order",
 							"host": [
-								"{{local}}"
+								"{{prod}}"
 							],
 							"path": [
 								"order"
@@ -210,7 +239,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"password\": \"12345678\",\n    \"mail\": \"email@teste.com\"\n    }",
+							"raw": "{\n    \"password\": \"123@UAI\",\n    \"mail\": \"thaynara@gmail.com\"\n}\n\n//USER ADM: administrador admin@admin.com mesma senha do email acima como exemplo",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -218,9 +247,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{local}}/login",
+							"raw": "{{prod}}/login",
 							"host": [
-								"{{local}}"
+								"{{prod}}"
 							],
 							"path": [
 								"login"
@@ -228,6 +257,216 @@
 						}
 					},
 					"response": []
+				}
+			]
+		},
+		{
+			"name": "adm",
+			"item": [
+				{
+					"name": "product",
+					"item": [
+						{
+							"name": "Criacao de produto",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Red Velvet\",\n    \"description\": \"It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters\",\n    \"category\": \"vegano\",\n    \"price\": 18.0\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{prod}}/admin/product",
+									"host": [
+										"{{prod}}"
+									],
+									"path": [
+										"admin",
+										"product"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Alteracao de disponibilidade",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"6130dc125-0deb-48c8-98db-b1190418f448\",\n    \"availabilityStatus\": \"UNAVAILABLE\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{prod}}/admin/product/availability",
+									"host": [
+										"{{prod}}"
+									],
+									"path": [
+										"admin",
+										"product",
+										"availability"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update de cupcake",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"130dc125-0deb-48c8-98db-b1190418f448\",\n    \"name\": \"Blueberry\",\n    \"description\": \"It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters\",\n    \"category\": \"vegano\",\n    \"price\": 14.00,\n    \"photos\": null\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{prod}}/admin/product",
+									"host": [
+										"{{prod}}"
+									],
+									"path": [
+										"admin",
+										"product"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "order",
+					"item": [
+						{
+							"name": "orders",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{prod}}/admin/order?order=ASC&limit=10",
+									"host": [
+										"{{prod}}"
+									],
+									"path": [
+										"admin",
+										"order"
+									],
+									"query": [
+										{
+											"key": "order",
+											"value": "ASC",
+											"description": "ASC, DESC"
+										},
+										{
+											"key": "status",
+											"value": "DELIVERED",
+											"description": "'PENDING', 'CONFIRMED', 'CANCELLED', 'DELIVERED', 'PREPARATION'",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Alteracao de status",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"e4db0aac-adc7-46b3-97bb-8bd92cc9641d\",\n    \"status\": \"DELIVERED\",\n    \"additionalInfo\": \"Retirado por Vinícius\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{prod}}/admin/order/status",
+									"host": [
+										"{{prod}}"
+									],
+									"path": [
+										"admin",
+										"order",
+										"status"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}
@@ -262,6 +501,11 @@
 		},
 		{
 			"key": "token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "prod",
 			"value": "",
 			"type": "string"
 		}
